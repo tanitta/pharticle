@@ -26,13 +26,18 @@ namespace pharticle {
 			
 			virtual ~CollidableNode(){};
 			
-			void setup(std::vector<pharticle::Particle*>& particle_ptrs){
-				if(particle_ptrs.size() > 0){
-					
-				}
+			void update(std::vector<pharticle::Particle*>& particle_ptrs){
+				clear();
+				make_node(particle_ptrs);
 			};
 			
+			
 		private:
+			void clear(){
+				nexts_.clear();
+				particle_ptrs_.clear();
+			};
+			
 			void make_node(std::vector<pharticle::Particle*>& particle_ptrs){
 				//バウンディングボックスを設定し
 				//最も長い軸を調べる

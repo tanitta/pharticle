@@ -3,14 +3,21 @@
 namespace pharticle {
 	class Engine {
 		private:
-			std::vector<Particle> particles_;
-			pharticle::World world_;
+			std::vector<Particle>& particles_;
+			
+			pharticle::CollisionDetector collision_detector_;
 		public:
-			Engine():world_(){
-			};
+			Engine(std::vector<pharticle::Particle>& particles):
+				particles_(particles),
+				collision_detector_()
+			{};
 			virtual ~Engine(){};
 			
-			void add_particle(){
+			void set_particle(){
+			};
+			
+			void update(){
+				collision_detector_.update(particles_);
 			};
 	};
 } // namespace pharticle
