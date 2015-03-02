@@ -1,6 +1,6 @@
 pharticle
 =========
-pharticle simulator
+particle simulator
 
 ## Pipeline
 1. ForceAdder
