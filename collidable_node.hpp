@@ -39,6 +39,7 @@ namespace pharticle {
 			};
 			
 			void make_node(std::vector<pharticle::Particle*>& particle_ptrs){
+				particle_ptrs_ = particle_ptrs;
 				//バウンディングボックスを設定し
 				//最も長い軸を調べる
 				int most_large_axis = 0;
@@ -98,8 +99,6 @@ namespace pharticle {
 					nexts_.push_back(CollidableNode());
 					nexts_[0].make_node(partial_particle_ptrs1);
 					nexts_[1].make_node(partial_particle_ptrs2);
-				}else{
-					particle_ptrs_ = particle_ptrs;
 				}
 			};
 	};
