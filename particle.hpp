@@ -18,6 +18,10 @@ namespace pharticle {
 			// 	Eigen::Vector3d center;
 			// 	return center;
 			// };
+			void integrate(){
+				velocity_ += acceleration_;
+				position_ += velocity_;
+			}
 	};
 } // namespace pharticle
 

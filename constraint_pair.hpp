@@ -19,5 +19,9 @@ namespace pharticle{
 				}
 				return false;
 			};
+			
+			void solve(){
+				particle_ptrs_[1]->acceleration_ += func_force_(*particle_ptrs_[0], *particle_ptrs_[1])/particle_ptrs_[0]->mass_;
+			};
 	};
 } // namespace pharticle
