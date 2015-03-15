@@ -12,6 +12,8 @@ namespace pharticle {
 			std::vector<pharticle::Particle*> particle_ptrs_;
 			
 			std::vector<ConstraintPair>& constraint_pairs_ref_;
+			
+			std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> func_reaction_force_;
 		public:
 			CollisionDetector(std::vector<ConstraintPair>& constraint_pairs_ref):
 				constraint_pairs_ref_(constraint_pairs_ref){
@@ -42,7 +44,7 @@ namespace pharticle {
 							// std::cout << "very near :" <<particle.id_<<" :"<<collidable_node.particle_ptrs_[0]->id_<< std::endl;
 							//detail
 							if(detect_detail(particle, *collidable_node.particle_ptrs_[0])){
-								constraint_pairs_ref_.push_back(pharticle::ConstraintPair(&particle,collidable_node.particle_ptrs_[0]));
+								constraint_pairs_ref_.push_back(pharticle::ConstraintPair(&particle,collidable_node.particle_ptrs_[0], func_reaction_force_));
 							}
 						}
 					}else{//nodeの場合
@@ -77,6 +79,10 @@ namespace pharticle {
 					return true;
 				}
 				return false;
+			};
+			
+			void set_func_reaction_force(std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
+				func_reaction_force_ = f;
 			};
 	};
 } // namespace pharticle
