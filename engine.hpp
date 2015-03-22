@@ -50,6 +50,18 @@ namespace pharticle {
 				collision_detector_.set_func_reaction_force(f);
 			};
 			
+			void add_constraint_pair(pharticle::ConstraintPair& pair){
+				constraint_pairs_.push_back(pair);
+			};
+			
+			void add_constraint_pair(pharticle::Particle* p1_ptr, pharticle::Particle* p2_ptr, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p1_ptr,p2_ptr,f));
+			};
+			
+			void add_constraint_pair_bdi(pharticle::Particle* p1_ptr, pharticle::Particle* p2_ptr, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p1_ptr,p2_ptr,f));
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p2_ptr,p1_ptr,f));
+			};
 			// void set_func_force(std::string s, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
 			// }
 	};

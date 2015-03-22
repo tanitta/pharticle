@@ -1,5 +1,5 @@
 #pragma once
-#include <collidable_node.hpp>
+// #include <collidable_node.hpp>
 namespace pharticle {
 	//! 衝突判定を行う
 	/*!

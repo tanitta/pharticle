@@ -4,11 +4,11 @@
 #endif
 #include <Eigen/Core>
 
-#include <particle.hpp>
-#include <collidable_node.hpp>
-#include <constraint_pair.hpp>
-#include <collision_detector.hpp>
-#include <constraint_solver.hpp>
-#include <integrator.hpp>
-#include <world.hpp>
-#include <engine.hpp>
+#include <pharticle/particle.hpp>
+#include <pharticle/collidable_node.hpp>
+#include <pharticle/constraint_pair.hpp>
+#include <pharticle/collision_detector.hpp>
+#include <pharticle/constraint_solver.hpp>
+#include <pharticle/integrator.hpp>
+#include <pharticle/world.hpp>
+#include <pharticle/engine.hpp>
