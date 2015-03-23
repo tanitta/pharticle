@@ -28,7 +28,10 @@ namespace pharticle {
 			
 			void update(std::vector<pharticle::Particle*>& particle_ptrs){
 				clear();
-				make_node(particle_ptrs);
+				
+				if(particle_ptrs.size() > 0){
+					make_node(particle_ptrs);
+				}
 			};
 			
 			

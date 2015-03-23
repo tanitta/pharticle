@@ -9,30 +9,24 @@ namespace pharticle {
 	class CollisionDetector {
 		private:
 			pharticle::CollidableNode collidable_tree_;
-			std::vector<pharticle::Particle*> particle_ptrs_;
+			std::vector<pharticle::Particle*>& particle_ptrs_ref_;
 			
 			std::vector<ConstraintPair>& constraint_pairs_ref_;
 			
 			std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> func_reaction_force_;
 		public:
-			CollisionDetector(std::vector<ConstraintPair>& constraint_pairs_ref):
+			CollisionDetector(std::vector<Particle*>& particle_ptrs_ref, std::vector<ConstraintPair>& constraint_pairs_ref):
+				particle_ptrs_ref_(particle_ptrs_ref),
 				constraint_pairs_ref_(constraint_pairs_ref){
 			};
 			virtual ~CollisionDetector(){};
 			
-			void set_particle(std::vector<pharticle::Particle>& particles){
-				particle_ptrs_.clear();
-				for (auto&& particle : particles) {
-					particle_ptrs_.push_back(&particle);
-				}
-			}
-			
-			void update(std::vector<pharticle::Particle>& particles){
-				set_particle(particles);
-				collidable_tree_.update(particle_ptrs_);
+			void update(){
 				
-				for (auto&& particle : particles) {
-					search_tree(particle, collidable_tree_);
+				collidable_tree_.update(particle_ptrs_ref_);
+				
+				for (auto&& particle_ptr : particle_ptrs_ref_) {
+					search_tree(*particle_ptr, collidable_tree_);
 				}
 			};
 			

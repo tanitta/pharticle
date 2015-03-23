@@ -3,7 +3,7 @@
 namespace pharticle {
 	class Engine {
 		private:
-			std::vector<Particle>& particles_;
+			std::vector<Particle*> particle_ptrs_;
 			std::vector<ConstraintPair> constraint_pairs_;
 			
 			
@@ -20,23 +20,22 @@ namespace pharticle {
 				return v;
 			}
 			
-			Engine(std::vector<pharticle::Particle>& particles):
-				particles_(particles),
-				collision_detector_(constraint_pairs_),
+			Engine():
+				// particle_ptrs_(0),
+				collision_detector_(particle_ptrs_,constraint_pairs_),
 				constraint_solver_(constraint_pairs_),
-				integrator_(particles_)
+				integrator_(particle_ptrs_)
 			{
 				collision_detector_.set_func_reaction_force([](pharticle::Particle&, pharticle::Particle&){Eigen::Vector3d v(0,0,0); return v;});
 			};
 			virtual ~Engine(){};
 			
-			void set_particle(){
-			};
 			
 			void update(){
 				std::cout<<"----------------"<<std::endl;
-				collision_detector_.update(particles_);
+				collision_detector_.update();
 				std::cout << "constraint_pairs_:" << constraint_pairs_.size() << std::endl;
+				std::cout << "particles:" << particle_ptrs_[0]->position_[0] << std::endl;
 				constraint_solver_.update();
 				integrator_.update();
 				constraint_pairs_.clear();
@@ -44,6 +43,14 @@ namespace pharticle {
 			};
 			
 			void draw(){
+			};
+			
+			void add_particle_ptr(Particle& p){
+				particle_ptrs_.push_back(&p);
+			};
+			
+			void clear_particle_ptrs(){
+				particle_ptrs_.clear();
 			};
 			
 			void set_func_reaction_force(std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
