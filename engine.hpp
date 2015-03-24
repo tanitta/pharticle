@@ -32,10 +32,7 @@ namespace pharticle {
 			
 			
 			void update(){
-				std::cout<<"----------------"<<std::endl;
 				collision_detector_.update();
-				std::cout << "constraint_pairs_:" << constraint_pairs_.size() << std::endl;
-				std::cout << "particles:" << particle_ptrs_[0]->position_[0] << std::endl;
 				constraint_solver_.update();
 				integrator_.update();
 				constraint_pairs_.clear();
@@ -59,6 +56,11 @@ namespace pharticle {
 			
 			void add_constraint_pair(pharticle::ConstraintPair& pair){
 				constraint_pairs_.push_back(pair);
+			};
+			
+			void add_constraint_pair_bdi(pharticle::ConstraintPair& pair){
+				constraint_pairs_.push_back(pair);
+				constraint_pairs_.push_back(pharticle::ConstraintPair(pair.particle_ptrs_[1],pair.particle_ptrs_[0],pair.func_force_));
 			};
 			
 			void add_constraint_pair(pharticle::Particle* p1_ptr, pharticle::Particle* p2_ptr, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){

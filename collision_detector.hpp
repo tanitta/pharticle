@@ -22,11 +22,11 @@ namespace pharticle {
 			virtual ~CollisionDetector(){};
 			
 			void update(){
-				
-				collidable_tree_.update(particle_ptrs_ref_);
-				
-				for (auto&& particle_ptr : particle_ptrs_ref_) {
-					search_tree(*particle_ptr, collidable_tree_);
+				if (particle_ptrs_ref_.size() > 1) {
+					collidable_tree_.update(particle_ptrs_ref_);
+					for (auto&& particle_ptr : particle_ptrs_ref_) {
+						search_tree(*particle_ptr, collidable_tree_);
+					}
 				}
 			};
 			

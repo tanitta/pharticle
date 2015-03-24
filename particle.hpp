@@ -10,6 +10,9 @@ namespace pharticle {
 			Eigen::Vector3d acceleration_;
 			
 			Particle():id_(0),mass_(1),radius_(),position_(),velocity_(),acceleration_(){
+				position_ << 0,0,0;
+				velocity_ << 0,0,0;
+				acceleration_ << 0,0,0;
 			}
 			
 			virtual ~Particle(){};
