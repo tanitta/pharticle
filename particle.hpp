@@ -9,7 +9,9 @@ namespace pharticle {
 			Eigen::Vector3d velocity_;
 			Eigen::Vector3d acceleration_;
 			
-			Particle():id_(0),mass_(1),radius_(),position_(),velocity_(),acceleration_(){
+			bool b_static_;
+			
+			Particle():id_(0),mass_(1),radius_(),position_(),velocity_(),acceleration_(),b_static_(false){
 				position_ << 0,0,0;
 				velocity_ << 0,0,0;
 				acceleration_ << 0,0,0;
@@ -22,8 +24,12 @@ namespace pharticle {
 			// 	return center;
 			// };
 			void integrate(){
-				velocity_ += acceleration_;
-				position_ += velocity_;
+				if(b_static_){
+					velocity_ << 0,0,0;
+				}else{
+					velocity_ += acceleration_;
+					position_ += velocity_;
+				}
 			}
 	};
 } // namespace pharticle
