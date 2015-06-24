@@ -38,7 +38,7 @@ namespace pharticle {
 							// std::cout << "very near :" <<particle.id_<<" :"<<collidable_node.particle_ptrs_[0]->id_<< std::endl;
 							//detail
 							if(detect_detail(particle, *collidable_node.particle_ptrs_[0])){
-								constraint_pairs_ref_.push_back(pharticle::ConstraintPair(&particle,collidable_node.particle_ptrs_[0], func_reaction_force_));
+								constraint_pairs_ref_.push_back(pharticle::ConstraintPair(particle,*collidable_node.particle_ptrs_[0], func_reaction_force_));
 							}
 						}
 					}else{//nodeの場合

@@ -46,19 +46,19 @@ namespace pharticle {
 			};
 			
 			
-			void add_constraint_pair_consist_of(pharticle::Particle* p1_ptr, pharticle::Particle* p2_ptr, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
-				constraint_pairs_.push_back(pharticle::ConstraintPair(p1_ptr,p2_ptr,f));
+			void add_constraint_pair_consist_of(pharticle::Particle& p1, pharticle::Particle& p2, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p1,p2,f));
 			};
 			
 			void add_as_both_directions(pharticle::ConstraintPair& pair){
 				constraint_pairs_.push_back(pair);
-				constraint_pairs_.push_back(pharticle::ConstraintPair(pair.particle_ptrs_[1],pair.particle_ptrs_[0],pair.func_force_));
+				constraint_pairs_.push_back(pharticle::ConstraintPair(*pair.particle_ptrs_[1],*pair.particle_ptrs_[0],pair.func_force_));
 			};
 			
 			
-			void add_constraint_pair_as_both_directions_consist_of(pharticle::Particle* p1_ptr, pharticle::Particle* p2_ptr, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
-				constraint_pairs_.push_back(pharticle::ConstraintPair(p1_ptr,p2_ptr,f));
-				constraint_pairs_.push_back(pharticle::ConstraintPair(p2_ptr,p1_ptr,f));
+			void add_constraint_pair_as_both_directions_consist_of(pharticle::Particle& p1, pharticle::Particle& p2, std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p1,p2,f));
+				constraint_pairs_.push_back(pharticle::ConstraintPair(p2,p1,f));
 			};
 			
 			void clear_constraint_pairs(){
