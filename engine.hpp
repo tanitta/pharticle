@@ -6,10 +6,6 @@ namespace pharticle {
 			std::vector<Particle*> particle_ptrs_;
 			std::vector<ConstraintPair> constraint_pairs_;
 			
-			
-			// std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> func_reaction_force_;
-			// std::map<std::string,std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)>> func_force_maps_;
-			// 
 			pharticle::CollisionDetector collision_detector_;
 			pharticle::ConstraintSolver constraint_solver_;
 			pharticle::Integrator integrator_;
