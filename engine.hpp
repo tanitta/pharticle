@@ -7,12 +7,14 @@ namespace pharticle {
 			std::vector<ConstraintPair> constraint_pairs_;
 			
 			pharticle::CollisionDetector collision_detector_;
+			std::vector<ConstraintPair> collision_constraint_pairs_;
+			
 			pharticle::ConstraintSolver constraint_solver_;
 			pharticle::Integrator integrator_;
 			
 		public:
 			Engine():
-				collision_detector_(particle_ptrs_,constraint_pairs_),
+				collision_detector_(particle_ptrs_,collision_constraint_pairs_),
 				constraint_solver_(constraint_pairs_),
 				integrator_(particle_ptrs_)
 			{
@@ -22,7 +24,9 @@ namespace pharticle {
 			
 			
 			void update(){
+				collision_constraint_pairs_.clear();
 				collision_detector_.update();
+				constraint_pairs_.insert(constraint_pairs_.end(), collision_constraint_pairs_.begin(), collision_constraint_pairs_.end());
 				constraint_solver_.update();
 				integrator_.update();
 				clear_constraint_pairs();
@@ -66,5 +70,9 @@ namespace pharticle {
 			void set_collision_reaction_force(std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
 				collision_detector_.set_func_reaction_force(f);
 			};
+			
+			std::vector<ConstraintPair> collision_pairs(){
+				return collision_constraint_pairs_;
+			}
 	};
 } // namespace pharticle
