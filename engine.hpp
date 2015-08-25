@@ -25,18 +25,20 @@ namespace pharticle {
 				collision_detector_.update();
 				constraint_solver_.update();
 				integrator_.update();
-				constraint_pairs_.clear();
-				
+				clear_constraint_pairs();
+				clear_particles();
 			};
 			
 			void add(Particle& p){
 				particle_ptrs_.push_back(&p);
 			};
 			
+		private:
 			void clear_particles(){
 				particle_ptrs_.clear();
 			};
 			
+		public:	
 			void add(pharticle::ConstraintPair& pair){
 				constraint_pairs_.push_back(pair);
 			};
@@ -56,12 +58,11 @@ namespace pharticle {
 				constraint_pairs_.push_back(pharticle::ConstraintPair(p1,p2,f));
 				constraint_pairs_.push_back(pharticle::ConstraintPair(p2,p1,f));
 			};
-			
+		private:	
 			void clear_constraint_pairs(){
-				particle_ptrs_.clear();
 				constraint_pairs_.clear();
 			};
-			
+		public:	
 			void set_collision_reaction_force(std::function<Eigen::Vector3d(pharticle::Particle&, pharticle::Particle&)> f){
 				collision_detector_.set_func_reaction_force(f);
 			};

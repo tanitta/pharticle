@@ -11,7 +11,7 @@ namespace pharticle {
 			
 			bool b_static_;
 			
-			Particle():id_(0),mass_(1),radius_(),position_(),velocity_(),acceleration_(),b_static_(false){
+			Particle():id_(0),mass_(1),radius_(1),position_(),velocity_(),acceleration_(),b_static_(false){
 				position_ << 0,0,0;
 				velocity_ << 0,0,0;
 				acceleration_ << 0,0,0;
