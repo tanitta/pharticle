@@ -23,12 +23,12 @@ namespace pharticle {
 			// 	Eigen::Vector3d center;
 			// 	return center;
 			// };
-			void integrate(){
+			void integrate(double unit_time = 1.0){
 				if(b_static_){
 					velocity_ << 0,0,0;
 				}else{
-					velocity_ += acceleration_;
-					position_ += velocity_;
+					velocity_ += acceleration_ * unit_time;
+					position_ += velocity_ * unit_time;
 				}
 			}
 	};

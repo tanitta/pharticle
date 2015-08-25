@@ -12,11 +12,13 @@ namespace pharticle {
 			pharticle::ConstraintSolver constraint_solver_;
 			pharticle::Integrator integrator_;
 			
+			double unit_time_;
 		public:
 			Engine():
 				collision_detector_(particle_ptrs_,collision_constraint_pairs_),
 				constraint_solver_(constraint_pairs_),
-				integrator_(particle_ptrs_)
+				integrator_(particle_ptrs_),
+				unit_time_(1.0)
 			{
 				collision_detector_.set_func_reaction_force([](pharticle::Particle&, pharticle::Particle&){Eigen::Vector3d v(0,0,0); return v;});
 			};
@@ -28,7 +30,7 @@ namespace pharticle {
 				collision_detector_.update();
 				constraint_pairs_.insert(constraint_pairs_.end(), collision_constraint_pairs_.begin(), collision_constraint_pairs_.end());
 				constraint_solver_.update();
-				integrator_.update();
+				integrator_.update(unit_time_);
 				clear_constraint_pairs();
 				clear_particles();
 			};
@@ -43,6 +45,10 @@ namespace pharticle {
 			};
 			
 		public:	
+			void set_unit_time(double time){
+				unit_time_ = time;
+			}
+			
 			void add(pharticle::ConstraintPair& pair){
 				constraint_pairs_.push_back(pair);
 			};
